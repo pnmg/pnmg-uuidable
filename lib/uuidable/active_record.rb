@@ -21,7 +21,7 @@ module Uuidable
 
       def uuidable(as_param: true)
         after_initialize { self.uuid = Uuidable.generate_uuid if attributes.keys.include?('uuid') && uuid.blank? }
-        validates :uuid, presence: true, uniqueness: true
+        validates :uuid, presence: true, uniqueness: { case_sensitive: true }
 
         if as_param
           define_method :to_param do
